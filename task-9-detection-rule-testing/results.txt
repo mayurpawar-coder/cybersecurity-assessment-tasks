@@ -1,0 +1,24 @@
+Events: 154   |   v1 alerts: 3   |   v2 alerts: 5
+
+ID  Should alert  v1                              v2                          Description
+--------------------------------------------------------------------------------------------------------------
+S00 False         TN                              TN                          Normal background logins + lone typos
+S01 True          TP V1/MEDIUM                    TP R1/MEDIUM                Classic brute force: 8 fails/2 min, 1 IP -> 1 account
+S02 True          FN (missed)                     TP R2/HIGH                  Slow password spray: 1 IP, 20 users, 1 try/2 min, no success
+S03 True          FN (missed)                     TP R3/HIGH                  Distributed attack on 1 account from 10 IPs in 6 min
+S04 False         FP (false alarm) V1/MEDIUM      TN                          Office NAT: 6 users mistype once then succeed (same IP)
+S05 False         TN                              TN                          Single user forgets password: 3 fails then success
+S06 False         TN                              TN                          Boundary: exactly 4 fails, below threshold
+S07 True          TP V1/MEDIUM                    TP R1/CRITICAL              Brute force that ends in SUCCESS (likely compromise)
+S08 True          FN (missed)                     TP R1/MEDIUM                Low-and-slow brute force: 12 fails over 24 min
+S09 True          FN (missed)                     FN (missed)                 Botnet spray: 30 IPs x 30 users, 1 fail each
+
+v1: TP=2 FP=1 FN=4 TN=3  precision=0.67 recall=0.33
+v2: TP=5 FP=0 FN=1 TN=4  precision=1.00 recall=0.83
+
+v2 alert detail:
+  2026-10-27 09:06:00  MEDIUM    R1 brute-force ip+user           key=203.0.113.10|admin  (5 events)
+  2026-10-27 09:10:00  HIGH      R2 password-spray ip             key=203.0.113.20  (5 events)
+  2026-10-27 09:21:30  MEDIUM    R1 brute-force ip+user           key=203.0.113.40|admin2  (10 events)
+  2026-10-27 09:24:12  HIGH      R3 distributed-user              key=finance.lead  (8 events)
+  2026-10-27 09:50:52  CRITICAL  R1 brute-force ip+user           key=203.0.113.30|svc.backup  (5 events)
