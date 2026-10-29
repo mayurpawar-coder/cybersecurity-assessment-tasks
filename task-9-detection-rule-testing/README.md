@@ -78,3 +78,6 @@ python generate_logs.py   # creates logs.csv + ground_truth_labels.csv
 python run_tests.py       # prints table, writes results.txt
 ```
 Python 3.8+, standard library only.
+
+## 8. Screenshot
+![Task 9 test results](screenshots/task9-results.png)

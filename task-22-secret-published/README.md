@@ -63,3 +63,6 @@
 - NIST SP 800-61 — *Computer Security Incident Handling Guide*
 - gitleaks (open-source secret scanner) — github.com/gitleaks/gitleaks
 - git-filter-repo — github.com/newren/git-filter-repo
+
+## 9. Screenshot
+![Task 22 demo output](screenshots/task22-demo-1.png)
